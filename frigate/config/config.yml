@@ -1,0 +1,77 @@
+version: 0.15.1
+
+mqtt:
+  host: 192.168.1.10
+  client_id: frigate
+  topic_prefix: frigate
+
+detect:
+  width: 640
+  height: 360
+
+cameras:
+  front_patio:
+    ffmpeg:
+      inputs:
+        - path: rtsp://manager:p@ssw0rd@192.168.70.106:554/stream1
+          roles: [detect, record]
+    detect:
+      enabled: true
+      width: 640
+      height: 360
+      fps: 1
+      max_disappeared: 1
+    objects:
+      track:
+        - person
+        - cat
+        - dog
+    record:
+      enabled: true
+      retain:
+        days: 1
+      alerts:
+        pre_capture: 1
+        post_capture: 1
+        retain:
+          days: 1
+      detections:
+        pre_capture: 1
+        post_capture: 1
+        retain:
+          days: 1
+    motion:
+      enabled: true
+
+  backyard:
+    ffmpeg:
+      inputs:
+        - path: rtsp://manager:p@ssw0rd@192.168.70.156:554/stream1
+          roles: [detect, record]
+    detect:
+      enabled: true
+      width: 640
+      height: 360
+      fps: 1
+      max_disappeared: 1
+    objects:
+      track:
+        - person
+        - cat
+        - dog
+    record:
+      enabled: true
+      retain:
+        days: 1
+      alerts:
+        pre_capture: 1
+        post_capture: 1
+        retain:
+          days: 1
+      detections:
+        pre_capture: 1
+        post_capture: 1
+        retain:
+          days: 1
+    motion:
+      enabled: true

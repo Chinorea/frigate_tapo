@@ -1,0 +1,14 @@
+services:
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable
+    container_name: frigate
+    restart: unless-stopped
+    privileged: true              # leave this in if you ever add Coral later
+    devices:
+      - /dev/bus/usb:/dev/bus/usb # Coral USB (optional)
+    volumes:
+      - ./config/config.yml:/config/config.yml
+      - ./media:/media/frigate    # you can actually omit ./media if you never record
+    ports:
+      - "5000:5000"   # Frigate UI (optional once you’ve tuned everything)
+      - "8554:8554"   # RTSP restream
